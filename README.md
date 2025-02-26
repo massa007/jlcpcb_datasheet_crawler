@@ -6,4 +6,5 @@ BOM File should have a column named "JLCPCB Part #" which is used to ectract the
 Additionally you need to download geckodriver (Mozilla driver for running Selenium module) and place it in /usr/local/bin or somewhere else as long as you correct the path in the script.
 
 Also you need to install following dependencies:
-pip3 install pandas openpyxl requests beautifulsoup4 selenium xlrd 
+
+```pip3 install pandas openpyxl requests beautifulsoup4 selenium xlrd``` 
