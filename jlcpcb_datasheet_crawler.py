@@ -33,10 +33,17 @@ HEADERS = {
 # Step 1: Extract part URLs from JLCPCB search
 print("Extracting part URLs...")
 df = pd.read_excel(BOM_FILE)
-if "JLCPCB Part #" not in df.columns:
-    raise ValueError("Column 'JLCPCB Part #' not found in BOM file")
 
-part_numbers = df["JLCPCB Part #"].dropna().tolist()
+# Check for the required column
+part_column = None
+if "JLCPCB Part #" in df.columns:
+    part_column = "JLCPCB Part #"
+elif "Supplier Part" in df.columns:
+    part_column = "Supplier Part"
+else:
+    raise ValueError("Neither 'JLCPCB Part #' nor 'Supplier Part' column found in BOM file")
+
+part_numbers = df[part_column].dropna().tolist()
 part_links = {}
 for part_number in part_numbers:
     search_url = f"https://jlcpcb.com/parts/componentSearch?searchTxt={part_number}"
@@ -95,4 +102,3 @@ for entry in datasheets:
 
 driver.quit()
 print("🎉 All datasheets processed and downloaded!")
-
